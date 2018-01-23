@@ -2,6 +2,11 @@
 
 trap 'exit 1' ERR
 
+if [ "$#" -ne 2 ]; then
+    echo Usage: $0 stream-name limit
+    exit 1
+fi
+
 STREAM_NAME=$1; shift
 LIMIT=$1; shift
 
