@@ -21,7 +21,7 @@ until [[ ${RECORDS} ]]; do
     >&2 echo MillisBehindLatest: $(echo ${RECORDS} | jq -r '.MillisBehindLatest')
     SHARD_ITERATOR=$(echo ${RECORDS} | jq -r '.NextShardIterator')
     RECORDS=$(echo ${RECORDS} | jq '.Records[]')
-    echo -en "\x1B[1A";
+    >&2 echo -en "\x1B[1A";
 done
 echo 
 echo ${RECORDS}
