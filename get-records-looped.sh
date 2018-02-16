@@ -17,17 +17,17 @@ i=1
 sp="/-\|"
 until [[ ${RECORDS} ]]; do
     RECORDS=$(aws kinesis get-records --shard-iterator ${SHARD_ITERATOR} --limit ${LIMIT})
-    printf "\b${sp:i++%${#sp}:1} "
+    >&2 printf "\b${sp:i++%${#sp}:1} "
     OFFSET=$(echo ${RECORDS} | jq -r '.MillisBehindLatest')
     >&2 echo MillisBehindLatest: ${OFFSET}
     SHARD_ITERATOR=$(echo ${RECORDS} | jq -r '.NextShardIterator')
     RECORDS=$(echo ${RECORDS} | jq '.Records[]')
     if [[ ${OFFSET} -eq ${PREV_OFFSET} ]]; then
-        echo 'It seems like there are no records available'
+        >&2 echo 'It seems like there are no records available'
         exit 0
     fi
     PREV_OFFSET=${OFFSET}
     >&2 echo -en "\x1B[1A";
 done
 echo 
-echo ${RECORDS}
+echo "${RECORDS}"
