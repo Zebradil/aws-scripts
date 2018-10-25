@@ -19,7 +19,7 @@ echo Total $(wc -l <<<"${LOG_STREAMS}") streams
 echo
 
 while true; do
-	read -p "Prceed? " yn
+	read -p "Proceed? " yn
 	case $yn in
 	[Yy]*) break ;;
 	[Nn]*) exit ;;
